@@ -1,0 +1,24 @@
+class Solution(object):
+    def isReflected(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: bool
+        """
+        from collections import defaultdict as ddict
+        y_based = ddict(set)
+        for [x, y] in points:
+            y_based[y].add(x)
+        expected_mid = None
+        for _, group in y_based.iteritems():
+            mid = sum(group) * 1.0 / len(group) * 2
+            
+            for x in group:
+                if not mid - x in group:
+                    return False
+                    
+            if expected_mid == None:
+                expected_mid = mid
+            elif mid != expected_mid:
+                    return False
+            
+        return True
